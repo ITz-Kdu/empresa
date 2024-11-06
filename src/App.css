@@ -1,38 +1,85 @@
-.App {
+/* Estilos gerais */
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url(Design\ sem\ nome\ \(4\).png);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container principal do formulário */
+div {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+/* Título do formulário */
+h1 {
   text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Estilo dos labels */
+label {
+  font-size: 14px;
+  color: #555;
+  display: block;
+  margin-bottom: 8px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Estilo dos inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Foco nos inputs */
+input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* Estilo do botão */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0068df;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Efeito de hover no botão */
+button:hover {
+  background-color: #002d55;
+}
+
+/* Estilo para inputs de tipo "number" */
+input[type="number"] {
+  -moz-appearance: textfield; /* Remove o estilo de spinner no Firefox */
+}
+
+/* Adicionar espaçamento no formulário */
+form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
