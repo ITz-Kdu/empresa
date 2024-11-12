@@ -79,6 +79,13 @@ function FormularioFuncionario() {
     }
   };
 
+  // Função para mostrar informações sobre a LGPD
+  const mostrarLGPD = () => {
+    alert(
+      'A LGPD (Lei Geral de Proteção de Dados) é uma lei brasileira que tem como objetivo proteger os dados pessoais de indivíduos, garantindo maior transparência e controle sobre o uso desses dados. Ela exige que as empresas informem como coletam, armazenam e utilizam os dados, além de permitir que os indivíduos solicitem a exclusão ou correção de suas informações.'
+    );
+  };
+
   return (
     <div>
       <h1>{editando ? 'Editar Funcionário' : 'Cadastro de Funcionário'}</h1>
@@ -141,6 +148,9 @@ function FormularioFuncionario() {
 
         <button type="submit">{editando ? 'Atualizar Funcionário' : 'Cadastrar Funcionário'}</button>
       </form>
+
+      <h2>Nos preocupamos com seus dados! </h2>
+      <button onClick={mostrarLGPD} style={{ marginTop: '20px' }}>O que é a LGPD?</button>
 
       <h2>Lista de Funcionários</h2>
       <table>
