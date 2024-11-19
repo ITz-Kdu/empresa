@@ -2,6 +2,7 @@
 body {
   font-family: 'Arial', sans-serif;
   background-image: url(Design\ sem\ nome\ \(4\).png);
+  background-size: cover;
   margin: 0;
   padding: 0;
   display: flex;
@@ -10,76 +11,198 @@ body {
   height: 100vh;
 }
 
-/* Container principal do formulário */
-div {
-  background-color: #e0e0e07c;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Container principal */
+.App {
   width: 100%;
-  max-width: 500px;
+  max-width: 1200px;
+  margin: 20px;
+  padding: 30px;
+  background-color: #f0f0f08c;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
 
-/* Título do formulário */
+/* Título principal */
 h1 {
   text-align: center;
+  font-size: 2.5rem;
   color: #333;
-  font-size: 24px;
   margin-bottom: 20px;
 }
 
-/* Estilo dos labels */
-label {
-  font-size: 14px;
-  color: #555;
-  display: block;
-  margin-bottom: 8px;
+/* Estilo das áreas (formulário, busca, exportação) */
+.area-formulario, .area-busca, .area-exportacao {
+  margin-bottom: 40px;
 }
 
-/* Estilo dos inputs */
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  box-sizing: border-box;
-  transition: border-color 0.3s;
+/* Estilo para o título de cada área */
+h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+  margin-left: 0;
 }
 
-/* Foco nos inputs */
-input:focus {
-  border-color: #4a90e2;
-  outline: none;
-}
-
-/* Estilo do botão */
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #0068df;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-/* Efeito de hover no botão */
-button:hover {
-  background-color: #002d55;
-}
-
-/* Estilo para inputs de tipo "number" */
-input[type="number"] {
-  -moz-appearance: textfield; /* Remove o estilo de spinner no Firefox */
-}
-
-/* Adicionar espaçamento no formulário */
+/* Formulário */
 form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+input:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Botão de submit */
+button {
+  padding: 15px;
+  font-size: 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Estilo para os campos de busca e exportação */
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+input[type="text"]:focus {
+  border-color: #4CAF50;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  font-size: 1.1rem;
+  color: #333;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+button {
+  background-color: #008cff;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Estilos adicionais para a exportação */
+/* Estilo dos botões de exportação */
+.area-exportacao button {
+  background-color: #2196F3;
+  padding: 12px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.area-exportacao button:hover {
+  background-color: #1976D2;
+}
+
+.area-exportacao button:first-child {
+  background-color: #FF5722;
+}
+
+.area-exportacao button:first-child:hover {
+  background-color: #E64A19;
+}
+
+/* Estilo da lista de funcionários */
+.area-lista {
+  margin-top: 40px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fafafa;
+}
+
+/* Estilo dos botões de editar e remover */
+.lista-funcionarios button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.lista-funcionarios button:hover {
+  opacity: 0.8;
+}
+
+.lista-funcionarios button:focus {
+  outline: none;
+}
+
+.lista-funcionarios button:nth-child(1) {
+  background-color: #4CAF50; /* Botão Editar */
+  color: white;
+}
+
+.lista-funcionarios button:nth-child(2) {
+  background-color: #FF5722; /* Botão Remover */
+  color: white;
+}
+
+.lista-funcionarios button:nth-child(1):hover {
+  background-color: #45a049;
+}
+
+.lista-funcionarios button:nth-child(2):hover {
+  background-color: #e64a19;
+}
+
+.lista-funcionarios input {
+  padding: 5px;
+  font-size: 1rem;
+  width: 100%;
+  margin: 5px 0;
 }

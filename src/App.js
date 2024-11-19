@@ -1,187 +1,61 @@
 import React, { useState } from 'react';
 import './App.css';
+import FormularioCadastro from './FormularioCadastro'; // Componente do formulário
+import BuscaFuncionarios from './BuscaFuncionarios'; // Componente de busca
+import Exportacao from './Exportacao'; // Componente de exportação
+import ListaDeFuncionarios from './ListaDeFuncionarios'; // Componente para lista de funcionários
+import Swal from 'sweetalert2'; // Para alertas
 
-function FormularioFuncionario() {
-  // Definindo os estados para os campos
-  const [nome, setNome] = useState('');
-  const [funcao, setFuncao] = useState('');
-  const [salario, setSalario] = useState('');
-  const [admissao, setAdmissao] = useState('');
-  const [demissao, setDemissao] = useState('');
-  const [funcionarios, setFuncionarios] = useState([]); // Estado para armazenar os funcionários
-  const [mensagem, setMensagem] = useState(''); // Mensagem de feedback ao usuário
-  const [editando, setEditando] = useState(false); // Para verificar se estamos editando um funcionário
-  const [funcionarioEditando, setFuncionarioEditando] = useState(null); // Funcionario que está sendo editado
+function App() {
+  const [funcionarios, setFuncionarios] = useState([]); // Lista de funcionários
 
-  // Função para validar se o salário é válido
-  const validarSalario = (salario) => {
-    return !isNaN(salario) && parseFloat(salario) > 0;
-  };
-
-  // Função para lidar com a submissão do formulário
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Verificando se o salário é válido
-    if (!validarSalario(salario)) {
-      setMensagem('Salário inválido. Deve ser um número positivo.');
-      return;
-    }
-
-    const funcionario = {
-      nome,
-      funcao,
-      salario: `R$ ${parseFloat(salario).toFixed(2)}`,
-      admissao,
-      demissao,
-    };
-
-    if (editando) {
-      // Editando um funcionário existente
-      setFuncionarios(funcionarios.map((f) =>
-        f.id === funcionarioEditando.id ? { ...f, ...funcionario } : f
-      ));
-      setMensagem('Funcionário atualizado com sucesso!');
-    } else {
-      // Adicionando um novo funcionário
-      const novoFuncionario = { ...funcionario, id: Date.now() };
-      setFuncionarios([...funcionarios, novoFuncionario]);
-      setMensagem('Funcionário cadastrado com sucesso!');
-    }
-
-    // Limpa os campos após o envio
-    setNome('');
-    setFuncao('');
-    setSalario('');
-    setAdmissao('');
-    setDemissao('');
-    setEditando(false);
-    setFuncionarioEditando(null);
+  // Função para remover um funcionário
+  const removerFuncionario = (id) => {
+    setFuncionarios(funcionarios.filter(funcionario => funcionario.id !== id));
+    Swal.fire('Sucesso', 'Funcionário removido com sucesso!', 'success');
   };
 
   // Função para editar um funcionário
-  const handleEdit = (funcionario) => {
-    setNome(funcionario.nome);
-    setFuncao(funcionario.funcao);
-    setSalario(funcionario.salario.replace('R$', '').trim()); // Remover o "R$" para edição
-    setAdmissao(funcionario.admissao);
-    setDemissao(funcionario.demissao || '');
-    setEditando(true);
-    setFuncionarioEditando(funcionario);
-  };
-
-  // Função para remover um funcionário
-  const handleRemove = (id) => {
-    const confirmacao = window.confirm('Tem certeza que deseja remover este funcionário?');
-    if (confirmacao) {
-      setFuncionarios(funcionarios.filter((f) => f.id !== id));
-      setMensagem('Funcionário removido com sucesso!');
-    }
-  };
-
-  // Função para mostrar informações sobre a LGPD
-  const mostrarLGPD = () => {
-    alert(
-      'A LGPD (Lei Geral de Proteção de Dados) é uma lei brasileira que tem como objetivo proteger os dados pessoais de indivíduos, garantindo maior transparência e controle sobre o uso desses dados. Ela exige que as empresas informem como coletam, armazenam e utilizam os dados, além de permitir que os indivíduos solicitem a exclusão ou correção de suas informações.'
-    );
+  const editarFuncionario = (id, nome, funcao, salario, admissao, demissao) => {
+    setFuncionarios(funcionarios.map(funcionario => 
+      funcionario.id === id ? { ...funcionario, nome, funcao, salario, admissao, demissao } : funcionario
+    ));
+    Swal.fire('Sucesso', 'Funcionário editado com sucesso!', 'success');
   };
 
   return (
-    <div>
-      <h1>{editando ? 'Editar Funcionário' : 'Cadastro de Funcionário'}</h1>
+    <div className="App">
+      <h1>Cadastro de Funcionários</h1>
 
-      {/* Exibe a mensagem de sucesso ou erro */}
-      {mensagem && <p>{mensagem}</p>}
+      {/* Área de Formulário */}
+      <div className="area-formulario">
+        <h2>Cadastro de Funcionário</h2>
+        <FormularioCadastro setFuncionarios={setFuncionarios} funcionarios={funcionarios} />
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nome:</label>
-          <input
-            type="text"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            placeholder="Digite o nome do funcionário"
-            required
-          />
-        </div>
+      {/* Área de Busca */}
+      <div className="area-busca">
+        <h2>Busca de Funcionários</h2>
+        <BuscaFuncionarios funcionarios={funcionarios} />
+      </div>
 
-        <div>
-          <label>Função:</label>
-          <input
-            type="text"
-            value={funcao}
-            onChange={(e) => setFuncao(e.target.value)}
-            placeholder="Digite a função"
-            required
-          />
-        </div>
+      {/* Área de Exportação */}
+      <div className="area-exportacao">
+        <h2>Exportar Dados</h2>
+        <Exportacao funcionarios={funcionarios} />
+      </div>
 
-        <div>
-          <label>Salário:</label>
-          <input
-            type="number"
-            value={salario}
-            onChange={(e) => setSalario(e.target.value)}
-            placeholder="Digite o salário"
-            required
-          />
-        </div>
-
-        <div>
-          <label>Data de Admissão:</label>
-          <input
-            type="date"
-            value={admissao}
-            onChange={(e) => setAdmissao(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Data de Demissão (se aplicável):</label>
-          <input
-            type="date"
-            value={demissao}
-            onChange={(e) => setDemissao(e.target.value)}
-          />
-        </div>
-
-        <button type="submit">{editando ? 'Atualizar Funcionário' : 'Cadastrar Funcionário'}</button>
-      </form>
-
-      <h2>Nos preocupamos com seus dados! </h2>
-      <button onClick={mostrarLGPD} style={{ marginTop: '20px' }}>O que é a LGPD?</button>
-
-      <h2>Lista de Funcionários</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Função</th>
-            <th>Salário</th>
-            <th>Data de Admissão</th>
-            <th>Data de Demissão</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {funcionarios.map((funcionario) => (
-            <tr key={funcionario.id}>
-              <td>{funcionario.nome}</td>
-              <td>{funcionario.funcao}</td>
-              <td>{funcionario.salario}</td>
-              <td>{funcionario.admissao}</td>
-              <td>{funcionario.demissao || 'Não demitido'}</td>
-              <td>
-                <button onClick={() => handleEdit(funcionario)}>Editar</button>
-                <button onClick={() => handleRemove(funcionario.id)}>Remover</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* Área de Lista de Funcionários */}
+      <div className="area-lista">
+        <h2>Lista de Funcionários Cadastrados</h2>
+        <ListaDeFuncionarios 
+          funcionarios={funcionarios}
+          removerFuncionario={removerFuncionario}
+          editarFuncionario={editarFuncionario}
+        />
+      </div>
     </div>
   );
 }
 
-export default FormularioFuncionario;
+export default App;
